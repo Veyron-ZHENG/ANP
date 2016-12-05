@@ -1,0 +1,50 @@
+
+public class Buffer {
+	private int[] buf;
+	private int last;
+	
+	public Buffer(int sz){
+		buf = new int[sz];
+		last = 0;
+	}
+	
+	public boolean isFull(){
+		return (last==buf.length);
+	}
+	
+	public boolean isEmpty(){
+		return (last==0);
+	}
+	
+	public synchronized void put(int c){
+		while(isFull()){
+			try {
+				wait();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		buf[last++] = c;
+		
+		notify();
+	}
+	
+	public synchronized int get(){
+		while(isEmpty()){
+			try {
+				wait();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		
+		int c = buf[0];
+		System.arraycopy(buf, 1, buf, 0, --last);
+		notify();
+		return c;
+	}
+}

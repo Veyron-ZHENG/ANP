@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<script>
+function validate(){
+	var name=document.form1.name.value;
+	var gender=document.form1.sex.value;
+	var flag=true;
+	if(name==""){
+		document.getElementById("nameinfo").innerHTML="Please identify yourself (by indicating your name), so that your horoscope can be given!";
+		flag=false;
+	}
+	if(!nameprocess(name)){
+		document.getElementById("nameinfo").innerHTML="Please indicate your name all letters with first upper!";
+		flag=false;
+	}
+	if(!(document.getElementById("male").checked||document.getElementById("female").checked)){
+		document.getElementById("sexinfo").innerHTML="Please select your gender!";
+	 	flag=false;
+	}
+	return flag;
+}
+
+function nameprocess(name){
+	if(name.charAt(0)>'Z'||name.charAt(0)<'A') return false;
+	for(i=0;i<name.length;i++){
+		if((name.charAt(0)>'Z'||name.charAt(0)<'A')&&(name.charAt(0)>'z'||name.charAt(0)<'a')) return false;
+	}
+	return true;
+}
+
+
+</script>
+<title>hello</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+</head>
+<body>
+	<form method="get" name="form1" onsubmit="return validate()" action="http://localhost:8080/ANP_LAB3/Horoscope">
+	Input your name:<input type=text name="name" id="name" ><br>
+	<font color="red"><p id="nameinfo"></p></font>
+	Input your sex:<input type="radio" name="sex" value="male" id="male">Male
+	<input type="radio" name="sex" value="female" id="female">Female<br>
+	<font color="red"><p id="sexinfo"></p></font>
+	Select your Zodiac sign:
+	<select name="zodiac">
+	<option value="1">Aries</option>
+	<option value="2">Taurus</option>
+	<option value="3">Gemini</option>
+	<option value="4">Cancer</option>
+	<option value="5">Leo</option>
+	<option value="6">Virgo</option>
+	<option value="7">Libra</option>
+	<option value="8">Scorpio</option>
+	<option value="9">Sagittarius</option>
+	<option value="10">Capricorn</option>
+	<option value="11">Aquarius and Pisces</option>
+	</select><br>
+	<input type="submit" value="Submit">
+	<input type="reset" value="Reset">
+	</form>
+</body>
+</html>
